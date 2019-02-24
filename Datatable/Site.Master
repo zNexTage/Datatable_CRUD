@@ -1,0 +1,72 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Datatable.Site" %>
+
+<!DOCTYPE html> 
+
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="Scripts/jquery-3.0.0.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+
+    <link href="DataTable/datatables.min.css" rel="stylesheet" />
+    <script src="DataTable/datatables.min.js"></script>
+    <script src="DataTable/DataTables/js/jquery.dataTables.min.js"></script>
+    <link href="DataTable/DataTables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <script src="DataTable/DataTables/js/dataTables.bootstrap4.min.js"></script>
+
+    <script src="Mask/jquery.mask.min.js"></script>
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: lawngreen;">
+            <a class="navbar-brand" href="#" style="color: white;">CRUD</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link active" href="#" style="color: white;">Home <span class="sr-only">(current)</span></a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <form id="form1" runat="server">
+        <div>
+            <main>
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </main>
+        </div>
+    </form>
+    <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="header"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="body"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    function modalMessage(header, body) {
+        document.getElementById('header').innerHTML = header;
+        document.getElementById('body').innerHTML = body;
+        $('#myModal').modal('show');
+
+    }
+</script>
+</body>
+</html>
