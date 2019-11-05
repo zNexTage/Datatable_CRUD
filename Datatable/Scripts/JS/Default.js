@@ -16,7 +16,7 @@ function CadastrarUsuario() {
     var Senha = $('#txtSenha').val();
 
     if (Nome == "" || Email == "" || CPF == "" || Senha == "") {
-        modalMessage('Aviso!!','Preencha todos os campos!!');
+        modalMessage('Aviso!!', 'Preencha todos os campos!!');
     }
     else {
         var jDados = { Nome: Nome, Email: Email, CPF: CPF, Senha: Senha };
@@ -65,6 +65,8 @@ function SelecionarUsuarios() {
                     $('#tblUsuarios').DataTable().clear().destroy();
                 }
 
+
+
                 $('#tblUsuarios').DataTable({
                     "language": {
                         "sEmptyTable": "Nenhum registro encontrado",
@@ -88,6 +90,32 @@ function SelecionarUsuarios() {
                     },
                     data: arr,
                     ordering: false,
+                    dom: 'Bfrtip',
+                    buttons: [
+                        {
+                            extend: 'excel',
+                            text: 'Excel',
+                        },
+                        {
+                            extend: 'copy',
+                            text: 'Copiar',
+                        },
+                        {
+                            extend: 'print',
+                            text: 'Imprimir',
+                        },
+                        {
+                            extend: 'pdfHtml5',
+                            text: 'PDF',
+                            customize: function (doc) {
+                                doc.styles.tableHeader.fontSize = 15;
+                            },
+                            exportOptions: {
+                                columns: [0,1,2]
+
+                            },
+                        }
+                    ],
                     columns: [
                         { title: "Id", "visible": false },
                         { title: "Nome" },
@@ -96,7 +124,7 @@ function SelecionarUsuarios() {
                         { title: "Editar" },
                         { title: "Remover" }
                     ],
-                   
+
                 });
             });
             console.log(arr);
@@ -107,29 +135,29 @@ function SelecionarUsuarios() {
     })
 }
 
-function Editar(obj) {   
+function Editar(obj) {
     var id = $(obj).data('id');
-    var Jid = { Id:id}
+    var Jid = { Id: id }
     $.ajax({
         url: "Default.aspx/SelecionarPeloId",
         data: JSON.stringify(Jid),
         dataType: "JSON",
         type: "POST",
         contentType: "Application/JSON;charset=utf-8",
-        success: function (data) {            
-            modalEdit(data.d.Id,data.d.Nome, data.d.Email, data.d.CPF);
+        success: function (data) {
+            modalEdit(data.d.Id, data.d.Nome, data.d.Email, data.d.CPF);
         },
         error: function () {
             modalMessage('Atenção', 'Houve um erro');
         }
 
     })
-    
+
 }
 function Remover(obj) {
     if (confirm("Deseja deletar esse usuário?")) {
         var id = $(obj).data('id');
-        var jId = {Id:id}
+        var jId = { Id: id }
         $.ajax({
             url: "Default.aspx/DeletarUsuario",
             type: "POST",
@@ -143,7 +171,7 @@ function Remover(obj) {
             error: function () {
                 modalMessage('Aviso', 'Ocorreu um erro');
             }
-            
+
         })
     }
 }
